@@ -1,52 +1,39 @@
-# Phase 2 Project Description
+# Home Pricing
 
-Another module down - you're almost half way there!
 
-![awesome](https://raw.githubusercontent.com/learn-co-curriculum/dsc-phase-2-project-v2-3/main/halfway-there.gif)
+## Overview
 
-All that remains in Phase 2 is to put your newfound data science skills to use with a large project!
 
-In this project description, we will cover:
+The focus of this project is to provide insight for new realtors in the housing market, informing them of the most critical elements in determining home prices. Data regarding homes in the greater King County (Washington) area  will be utilized to compose an informed regression model. The results of this model will help realtors understand what goes into the valuation of a home, determine fair pricing, and find optimal routes of improvement for homes in their portfolio if their owners wish to sell.
 
-* Project Overview: the project goal, audience, and dataset
-* Deliverables: the specific items you are required to produce for this project
-* Grading: how your project will be scored
-* Getting Started: guidance for how to begin working
+## Business Problem 
 
-## Project Overview
 
-For this project, you will use multiple linear regression modeling to analyze house sales in a northwestern county.
+New realtors in the housing market may be overwhelmed by the inherent sensitivity of property pricing. Relative perception of a home's price can be a result of several factors, and in an ever-changing market, home prices may skyrocket due to gentrification, overpopulation, and overall demographic shifts. On a rudimentary level though, a given property's price is determined by its features. The combination of these features may result in radically different prices. For example, homes with similar living square-footage may be priced completely different based on their location, view, or age. 
 
-### Business Problem
+Data from the King County housing dataset will be aggregated/summarized in order to determine the most impactful characteristics of a property's pricing. Isolating these critical features would give new realtors/real estate agencies a way to fairly value their assets. If it is within reason, the identified features can be improved upon in order to increase the valuation of a home.
 
-It is up to you to define a stakeholder and business problem appropriate to this dataset.
+## Data Understanding
 
-If you are struggling to define a stakeholder, we recommend you complete a project for a real estate agency that helps homeowners buy and/or sell homes. A business problem you could focus on for this stakeholder is the need to provide advice to homeowners about how home renovations might increase the estimated value of their homes, and by what amount.
+Each individual field will be assessed for its contribution to a home's resulting price. Each row in the table represents a unique property and its correlated features. This makes the table easy to summarize as it eliminates the presence of duplicate properties in the dataset. 
 
-### The Data
+Some columns in the dataframe are already represented in some way within other aggregate columns. For example, the 'sqft_basement' is already counted in the aggregate living space, 'sqft_living'. The data dictionary will help inform the decisions to remove any columns in order to prevent multicollinearity in our results.
 
-This project uses the King County House Sales dataset, which can be found in  `kc_house_data.csv` in the data folder in this assignment's GitHub repository. The description of the column names can be found in `column_names.md` in the same folder. As with most real world data sets, the column names are not perfectly described, so you'll have to do some research or use your best judgment if you have questions about what the data means.
 
-It is up to you to decide what data from this dataset to use and how to use it. If you are feeling overwhelmed or behind, we recommend you **ignore** some or all of the following features:
+![datastructure](/data/data.png)
 
-* `date`
-* `view`
-* `sqft_above`
-* `sqft_basement`
-* `yr_renovated`
-* `zipcode`
-* `lat`
-* `long`
-* `sqft_living15`
-* `sqft_lot15`
+### Data Preparation
 
-### Key Points
+The 'date' field (date home was sold) is removed, as homes may switch ownership on a relatively frequent basis. A more informative time-based metric to keep is 'yr_built', as the year a home was built can have an influence on the state of the its underlying construction, and the utilities present (e.g. insulation, air conditioning/heating, furnishings). 'yr_renovated' is removed for similar reasoning. While it is assumed that renovations will inherently raise a home's value, there is too much variability within the types/scale of renovations a home can go through. 
 
-* **Your goal in regression modeling is to yield findings to support relevant recommendations. Those findings should include a metric describing overall model performance as well as at least two regression model coefficients.** As you explore the data and refine your stakeholder and business problem definitions, make sure you are also thinking about how a linear regression model adds value to your analysis. "The assignment was to use linear regression" is not an acceptable answer! You can also use additional statistical techniques other than linear regression, so long as you clearly explain why you are using each technique.
+'sqft_above', 'sqft_lot', 'sqft_basement', 'sqft_living15', sqft_lot15' are removed, as they are already represented within the 'sqft_living' column, which represents the collective living area within a property. The values in 'sqft_lot' would expectedly be highly correlated with 'sqft_living' when looking at 1 floor homes.
 
-* **You should demonstrate an iterative approach to modeling.** This means that you must build multiple models. Begin with a basic model, evaluate it, and then provide justification for and proceed to a new model. After you finish refining your models, you should provide 1-3 paragraphs in the notebook discussing your final model.
+'zipcode','lat', and 'long' are removed due to them being impossible to quantify in the context of the overall dataset. Using external tools/mapping API to infer home pricing based on location may be a potential opportunity to explore in future analyses. 
 
-* **Data visualization and analysis are no longer explicit project requirements, but they are still very important.** In Phase 1, your project stopped earlier in the CRISP-DM process. Now you are going a step further, to modeling. Data visualization and analysis will help you build better models and tell a better story to your stakeholders.
+'id' is used as a unique identifier in the overall dataset, and does not have any correlation with a home's price.
+
+![newstructure](/data/newdata.png)
+
 
 ## Deliverables
 
