@@ -8,10 +8,12 @@ The focus of this project is to provide insight for new realtors in the housing 
 
 ## Business Problem 
 
+Relative perception of a home's price can be a result of several factors, and home prices may skyrocket/plummet due to gentrification, overpopulation, and overall demographic shifts. On a rudimentary level though, a given property's price is determined by its features. The combination of these features may result in radically different prices. For example, homes with similar living square-footage may be priced completely different based on their location, view, or age. 
 
-New realtors in the housing market may be overwhelmed by the inherent sensitivity of property pricing. Relative perception of a home's price can be a result of several factors, and in an ever-changing market, home prices may skyrocket due to gentrification, overpopulation, and overall demographic shifts. On a rudimentary level though, a given property's price is determined by its features. The combination of these features may result in radically different prices. For example, homes with similar living square-footage may be priced completely different based on their location, view, or age. 
+In an ever-fluctuating housing market, home owners looking to sell may be disappointed when they realize their property is worth less than they were expecting. Owners looking to increase their property valuation may have little direction/insight into the most optimal routes of home improvement. In some cases, blind financial investment into home modifications may prove to be unprofitable. 
 
-Data from the King County housing dataset will be aggregated/summarized in order to determine the most impactful characteristics of a property's pricing. Isolating these critical features would give new realtors/real estate agencies a way to fairly value their assets. If it is within reason, the identified features can be improved upon in order to increase the valuation of a home.
+Data from the King County housing dataset will be aggregated/summarized in order to determine the most impactful characteristics of a property's pricing. Isolating these critical features would give prospective home sellers a better idea of the make-up of their home's valuation. If it is within reason, the identified features can be improved upon in order to increase the valuation of a home.
+
 
 ## Data Understanding
 
@@ -159,7 +161,9 @@ There are several factors that go into determining a valuation of a home. In ord
 
 That being said, the model still revealed the key factors that have the highest effect on price. In the bottom half of the model summary seen below, the 'coef' column, aligning with each of the final variables, shows the numerical importance of the dependent price variable.
 
-As a note, when evaluating a theoretical price using the model, these coefficients represent how much Y increases with each 'unit' increase of a given X predictor variable. The Intercept value in the coefficient column shows the initial Baseline price estimated that each home has according to the model, stripped of its features. The resulting sum of all factors+intercepts should then be interpreted as the power that e (irrational number) is raised to, since we took the logarithmic value of the 'price' value in order to normalize the data. 
+As a note, when evaluating a theoretical price using the model, these coefficients represent the percent increase in price Y with each 'unit' increase of a given X predictor variable. The Intercept value in the coefficient column shows the initial Baseline price estimated that each home has according to the model, stripped of its features. To convert this into a value of interpretation, e^(intercept value), done to inverse the initial log transformation to get a baseline price of. In this case, the baseline home value is $112,307.
+
+
 
 ## Recommendations/Conclusion
 
