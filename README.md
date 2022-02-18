@@ -4,7 +4,7 @@
 ## Overview
 
 
-The focus of this project is to provide insight for new realtors in the housing market, informing them of the most critical elements in determining home prices. Data regarding homes in the greater King County (Washington) area  will be utilized to compose an informed regression model. The results of this model will help realtors understand what goes into the valuation of a home, determine fair pricing, and find optimal routes of improvement for homes in their portfolio if their owners wish to sell.
+The focus of this project is to provide insight for owners looking to list their homes in the housing market, informing them of the most critical elements in pricing to offer methods to increase valuation. Data regarding homes in the greater King County (Washington) area  will be utilized to compose an informed regression model. The results of this model will help home owners understand what goes into the valuation of a home, and find optimal routes of improvement if they wish to sell.
 
 ## Business Problem 
 
