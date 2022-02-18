@@ -79,68 +79,31 @@ It seems as if 'sqft_living', 'graded', 'viewed', and 'bathrooms' all have some 
 
 Within each of the individual predictors, it seems like there might be some columns that might have correlation to each other, which could prove to be a problem in the linearity of our model. In later models we will refine and evaluate these tendencies.
 
-
-### First Model
+## Iterative Linear Regression Modeling
 
 The first model will be created with variables that had the highest correlation with 'price'.
-
-![model1](https://github.com/n0vah917/dsc-phase-2-project-v2-3/blob/main/data/model1.png)
-
-The initial model has a very high Jarque-Bera coefficient, which implies a lack of normality within our continuous variables, which we can improve on in later iterations.
-
 The model coefficient that used to assess performance is the R-squared coefficient (top-right corner of the summary), which describes what percent of the dependent variable is described by the included predictors.
 
 Our goal with this iterative process will be to maximize this value/keep this value high, while reducing the Jarque-Bera coefficient, Kurtosis (sharpness of a frequency distribution curve). The more variables are added to the model will inherently increase the R2 coefficient, but we don't want the model to be over-explained/over-fitted through the addition of new variables.
 
+In the next model, log transformations are applied to the 'sqft_living' and 'price' variables. As a note, when it comes to our interpreting our eventual results, our resulting outcome metric value for price is actually the power 'e' is raised to. Taking the inverse of the natural log value gives us our actual calculated 'price'. 
 
-### Second Model
-
-In this model, transformations on the continuous variables will be performed in order to get them to better fit the assumptions of normality. 
-In this case, log transformations are applied to the 'sqft_living' and 'price' variables. As a note, when it comes to our interpreting our eventual results, our resulting outcome metric value for price is actually the power 'e' is raised to. Taking the inverse of the natural log value gives us our actual calculated 'price'. 
-
-
-![model2](https://github.com/n0vah917/dsc-phase-2-project-v2-3/blob/main/data/model2.png)
-
-
-Plotting the residuals out confirms that our continuous variables are now normalized. The heteroscedasticity we observed in the prior model has been reduced, and the spread of residuals across the X axis looks more even. The QQ plots also show the trademark 45 degree straight line now. Further improvement on this model can be achieved by addressing issues that may arise from multicollinearity in our variables.
-
-
-### Model 3
-
-
-Prior to creating the first model, correlation between some of the predictors was observed. These issues can be addressed  by replacing variables where necessary.
-
-'sqft_living' has a high correlation to the grade and bathroom columns, which is proven to be problematic. Multicollinearity is inherently a problem as performing linear regression assumes that unit changes in each individual predictor has no effect on the others. Since 'sqft_living' is highly correlated with more than one variable (correlation factor over .7), it can be replaced with a variable that has the next highest correlation with 'price', 'bathrooms' (.31 from the initial chart). 
+Next, 'sqft_living' has a high correlation to the grade and bathroom columns, which is proven to be problematic. Multicollinearity is inherently a problem as performing linear regression assumes that unit changes in each individual predictor has no effect on the others. Since 'sqft_living' is highly correlated with more than one variable (correlation factor over .7), it can be replaced with a variable that has the next highest correlation with 'price', 'bathrooms' (.31 from the initial chart). 
 
 Despite making the decision to remove 'sqft_living' from the model, it is still known that it has a noticably high correlation with pricing. More details regarding this choice will be expanded on in the final model's results.
 
-![model3](https://github.com/n0vah917/dsc-phase-2-project-v2-3/blob/main/data/model3.png)
+
+In order to increase the R-squared value and account for these new issues, next, adjustments can be performed to deal with the outliers within each of the predictors. Jarque-Bera improved slightly with these changes and the residual errors look better now that the outliers were removed. 
 
 
-Jarque-Bera went down further, and the R-squared value went down inherently, as a highly correlated variable to 'price' was replaced with a variable with a lower correlation. While the R-squared value is the main metric of importance, concern also lies in the validity of the coefficients for each predictor in the regression.  
-
-
-### Model 4
-
-
-In order to increase the R-squared value and account for these new issues, next, adjustments can be performed to deal with the outliers within each of the predictors.
-
-
-![model4](https://github.com/n0vah917/dsc-phase-2-project-v2-3/blob/main/data/model4.png)
-
-Jarque-Bera improved slightly with these changes and the residual errors look better now that the outliers were removed. 
-
-
-### Accounting for Interactions
-
-In an effort to further improve the R-squared value, the interaction between different variables, outside of an additive means should be accounted for. To start, the set is split into predictors and outcome variable, then the baseline R-squared score is re-calculated using KFold validation. 
+Next, in an effort to further improve the R-squared value, the interaction between different variables, outside of an additive means should be accounted for. To start, the set is split into predictors and outcome variable, then the baseline R-squared score is re-calculated using KFold validation. 
 
 
 Each pair combination of predictors is then assessed to understand if the addition of a interaction factor betweeen the two would increase the baseline R-squared value. 
 The top resulting scores from each added potential interaction are then printed. 
 
 
-![model5](https://github.com/n0vah917/dsc-phase-2-project-v2-3/blob/main/data/model5.png)
+
 
 
 With the addition of the interaction variable, the R-squared value increased slightly, and Jarque-Bera decreased slightly.
@@ -183,9 +146,22 @@ __From the final regression model, the variables that were most impactful in res
 
 The grade of a home relates to its construction and design. Homes that were designed by renowned artists/architects, or for famous individuals more than likely have special features that drive up the overall valuation. Redesigns/renovations with emphasized focus on the quality of its features will have a positive impact on its resulting price.
 
+Below is a depiction of the initial percieved linear relationship between grade and price.
+
+![grade](https://github.com/n0vah917/dsc-phase-2-project-v2-3/blob/main/data/pricegrade.png)
+
 The view a home has is especially important. Obviously, not much improvement can be done on a built home in terms of its location and view. However, the placement of windows could be optimized, further capitalizing on a home's location/view. Changing the window style, or having floor-to-ceiling glass panes to replace walls may greatly improve a home's price.
 
+Below is a depiction of the initial percieved linear relationship between view and price.
+
+![view](https://github.com/n0vah917/dsc-phase-2-project-v2-3/blob/main/data/priceview.png)
+
+
 The amount of bathrooms (and similarly bedrooms) a home has is inherently correlated with its square footage. The more rooms/occupants a home accomodates for, in turn, increases the required amount of bathroooms and resulting price. While being a potential improvement from the lens of condition, bathrooms can be renovated to increase the overall quality of utilities and design. 
+
+Below is a depiction of the initial percieved linear relationship between bathrooms and price.
+
+![bathrooms](https://github.com/n0vah917/dsc-phase-2-project-v2-3/blob/main/data/pricebathrooms.png)
 
 While approaching each of these variables for improvement individually would be infeasible, holistic renovations (of varied scales) would encompass all of these categories. There are several home improvement shows on HGTV that make an example of this, such as HGTV ‘s Love It or List It, where current owners have the option to make renovations to a home in order to improve its value. House Hunters, Fixer Upper, Property Brothers, and Flip or Flop, have similar themes of added value.
 
